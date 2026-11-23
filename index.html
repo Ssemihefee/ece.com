@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sevimli Atımı Giydir 🐴</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ffe4f1;
+    color: #914b83;
+}
+
+h1 {
+    color: #e45caa;
+    font-size: 30px;
+}
+
+.game {
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+}
+
+.horse-area {
+    background: #fff7fc;
+    border: 5px solid #ffb5dc;
+    border-radius: 25px;
+    padding: 20px;
+    margin: 15px auto;
+    min-height: 280px;
+}
+
+#horse {
+    font-size: 145px;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.accessories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px;
+}
+
+button {
+    border: none;
+    border-radius: 18px;
+    padding: 12px 16px;
+    font-size: 18px;
+    background: #ff9bce;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 3px 5px #d88bb5;
+}
+
+button:hover {
+    background: #e86aab;
+    transform: scale(1.05);
+}
+
+#message {
+    font-size: 22px;
+    color: #df55a0;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.reset {
+    background: #a78bfa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+<h1>🐴 Prenses Atımı Giydir! 🌸</h1>
+
+<p>Haydi, sevimli atımıza güzellik katalım!</p>
+
+<div class="horse-area">
+
+<div id="hat">👑</div>
+
+<div id="horse">🐴</div>
+
+<div id="dress">👗</div>
+
+<div id="shoes">👢</div>
+
+<div id="message">Merhaba! Benimle oynar mısın? 💕</div>
+
+</div>
+
+<h2>🎀 Şapka ve Taçlar</h2>
+
+<div class="accessories">
+<button onclick="change('hat','👑')">👑 Taç</button>
+<button onclick="change('hat','🎀')">🎀 Kurdele</button>
+<button onclick="change('hat','🌸')">🌸 Çiçek</button>
+<button onclick="change('hat','👒')">👒 Şapka</button>
+</div>
+
+<h2>👗 Kıyafetler</h2>
+
+<div class="accessories">
+<button onclick="change('dress','👗')">💗 Pembe Elbise</button>
+<button onclick="change('dress','👚')">💜 Mor Elbise</button>
+<button onclick="change('dress','🧥')">💛 Mont</button>
+<button onclick="change('dress','🦺')">💚 Yelek</button>
+</div>
+
+<h2>👢 Ayakkabılar</h2>
+
+<div class="accessories">
+<button onclick="change('shoes','👢')">👢 Çizme</button>
+<button onclick="change('shoes','👠')">👠 Pembe Ayakkabı</button>
+<button onclick="change('shoes','👟')">👟 Spor Ayakkabı</button>
+</div>
+
+<h2>🦄 Atımın Rengi</h2>
+
+<div class="accessories">
+<button onclick="change('horse','🐴')">🤎 Kahverengi</button>
+<button onclick="change('horse','🦄')">🤍 Gökkuşağı</button>
+<button onclick="change('horse','🐎')">🖤 Siyah</button>
+</div>
+
+<h2>🌈 Arka Plan</h2>
+
+<div class="accessories">
+<button onclick="bg('#ffe4f1')">🌸 Pembe</button>
+<button onclick="bg('#d9f5ff')">💙 Mavi</button>
+<button onclick="bg('#e5ffdf')">💚 Yeşil</button>
+<button onclick="bg('#fff3bd')">💛 Sarı</button>
+</div>
+
+<br>
+
+<button onclick="celebrate()">🎉 Bitti!</button>
+<button class="reset" onclick="resetGame()">🔄 Yeniden Oyna</button>
+
+</div>
+
+<script>
+
+function change(id, emoji) {
+    document.getElementById(id).innerHTML = emoji;
+    document.getElementById("message").innerHTML =
+    "Harika seçim! Çok güzel oldu! 💖";
+}
+
+function bg(color) {
+    document.body.style.background = color;
+}
+
+function celebrate() {
+    document.getElementById("message").innerHTML =
+    "🎉 Yaşasın! Atımız harika oldu! 🌈💕";
+}
+
+function resetGame() {
+    document.getElementById("hat").innerHTML = "👑";
+    document.getElementById("horse").innerHTML = "🐴";
+    document.getElementById("dress").innerHTML = "👗";
+    document.getElementById("shoes").innerHTML = "👢";
+
+    document.getElementById("message").innerHTML =
+    "Merhaba! Benimle oynar mısın? 💕";
+
+    document.body.style.background = "#ffe4f1";
+}
+
+</script>
+
+</body>
+</html>
