@@ -4,180 +4,1254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sevimli Atımı Giydir 🐴</title>
+<title>Pony Prenses - At Giydirme Oyunu</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #ffe4f1;
-    color: #914b83;
+* {
+    box-sizing: border-box;
 }
 
-h1 {
-    color: #e45caa;
-    font-size: 30px;
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background: #ffe7f3;
+    color: #874b87;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+header {
+    text-align: center;
+    padding: 18px;
+    background: linear-gradient(120deg,#ff8dc9,#c99bff,#8edcff);
+    color: white;
+    border-bottom: 5px solid white;
+}
+
+header h1 {
+    font-size: 32px;
+    margin: 5px;
+    text-shadow: 2px 3px 3px #a95a9a;
+}
+
+header p {
+    font-size: 15px;
+    margin: 5px;
 }
 
 .game {
-    max-width: 600px;
+    max-width: 1200px;
     margin: auto;
     padding: 15px;
 }
 
-.horse-area {
-    background: #fff7fc;
-    border: 5px solid #ffb5dc;
+.top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.pill {
+    background: white;
+    padding: 10px 17px;
     border-radius: 25px;
-    padding: 20px;
-    margin: 15px auto;
-    min-height: 280px;
+    box-shadow: 0 3px 8px #e5b5d5;
+    font-weight: bold;
 }
 
-#horse {
-    font-size: 145px;
-    margin: 10px;
-    transition: 0.3s;
+.game-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+    gap: 16px;
 }
 
-.accessories {
+.stage {
+    background: white;
+    border: 5px solid #ffc0e1;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px #dba8ca;
+}
+
+.stage-title {
+    text-align: center;
+    padding: 12px;
+    background: #fff0f8;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.scene {
+    position: relative;
+    background: linear-gradient(#bceeff 0%,#e4faff 62%,#a5e7a0 63%,#79ce87 100%);
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.scene svg {
+    width: 100%;
+    max-height: 470px;
+    position: relative;
+    z-index: 2;
+}
+
+.cloud {
+    position: absolute;
+    color: white;
+    font-size: 55px;
+    opacity: .9;
+}
+
+.cloud.one { top: 25px; left: 8%; }
+.cloud.two { top: 75px; right: 10%; }
+
+.flower {
+    position: absolute;
+    bottom: 8px;
+    font-size: 28px;
+}
+
+.flower.a { left: 5%; }
+.flower.b { left: 23%; }
+.flower.c { right: 20%; }
+.flower.d { right: 5%; }
+
+.character-name {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background: #fff;
+    border: 2px solid #ffaad5;
+    padding: 7px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #d65b9c;
+}
+
+.panel {
+    background: white;
+    border: 4px solid #ffc0e1;
+    border-radius: 25px;
+    padding: 14px;
+    box-shadow: 0 5px 12px #dfb0d0;
+}
+
+.panel h2 {
+    text-align: center;
+    margin: 5px 0 12px;
+    color: #dc69a7;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 7px;
+    margin-bottom: 12px;
+}
+
+.tab {
+    background: #ffe5f2;
+    color: #a94d88;
+    border: 2px solid #ffc1df;
+    border-radius: 12px;
+    padding: 11px 4px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.tab.active {
+    background: #ed85bd;
+    color: white;
+    border-color: #d45b9d;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+    max-height: 330px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.item {
+    background: #fff0f7;
+    border: 2px solid #ffd0e7;
+    border-radius: 15px;
+    min-height: 90px;
+    padding: 7px 3px;
+    color: #985c8b;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    transition: .2s;
+}
+
+.item:hover {
+    background: #ffd4eb;
+    transform: translateY(-3px);
+}
+
+.item.selected {
+    background: #f9a5d0;
+    border: 3px solid #d94f9a;
+    color: white;
+}
+
+.item-icon {
+    font-size: 30px;
+}
+
+.colors {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin: 15px;
+    gap: 12px;
+    padding: 15px 5px;
 }
 
-button {
-    border: none;
-    border-radius: 18px;
-    padding: 12px 16px;
-    font-size: 18px;
-    background: #ff9bce;
+.color {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 3px solid white;
+    outline: 2px solid #eab5d7;
+}
+
+.color:hover {
+    transform: scale(1.15);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.action {
+    background: linear-gradient(120deg,#ff9dce,#ca94f5);
     color: white;
-    cursor: pointer;
-    box-shadow: 0 3px 5px #d88bb5;
-}
-
-button:hover {
-    background: #e86aab;
-    transform: scale(1.05);
-}
-
-#message {
-    font-size: 22px;
-    color: #df55a0;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 15px;
+    font-size: 14px;
     font-weight: bold;
-    margin: 15px;
+    box-shadow: 0 3px 6px #d7a0c7;
 }
 
-.reset {
-    background: #a78bfa;
+.action:hover {
+    filter: brightness(1.06);
+    transform: scale(1.04);
+}
+
+.action.secondary {
+    background: #91cffa;
+}
+
+.message {
+    text-align: center;
+    padding: 14px;
+    margin-top: 14px;
+    border-radius: 17px;
+    background: #fff0f8;
+    font-size: 17px;
+    font-weight: bold;
+    color: #d45e9f;
+    min-height: 48px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #a75c95;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width:750px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .scene {
+        min-height: 350px;
+    }
+
+    .scene svg {
+        max-height: 390px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+}
+
+@media(max-width:380px) {
+    .items {
+        grid-template-columns: repeat(2,1fr);
+    }
 }
 </style>
 </head>
 
 <body>
 
+<header>
+    <h1>🌸 Pony Prenses 🌸</h1>
+    <p>Haydi kendi masal atını tasarla!</p>
+</header>
+
 <div class="game">
 
-<h1>🐴 Prenses Atımı Giydir! 🌸</h1>
+    <div class="top-info">
+        <div class="pill">👑 Prenses At Salonu</div>
+        <div class="pill">⭐ Tasarımcı: Sen!</div>
+    </div>
 
-<p>Haydi, sevimli atımıza güzellik katalım!</p>
+    <div class="game-layout">
 
-<div class="horse-area">
+        <section class="stage">
 
-<div id="hat">👑</div>
+            <div class="stage-title">
+                🦄 BENİM GÜZEL ATIM
+            </div>
 
-<div id="horse">🐴</div>
+            <div class="scene" id="scene">
 
-<div id="dress">👗</div>
+                <div class="cloud one">☁</div>
+                <div class="cloud two">☁</div>
 
-<div id="shoes">👢</div>
+                <div class="flower a">🌷</div>
+                <div class="flower b">🌼</div>
+                <div class="flower c">🌸</div>
+                <div class="flower d">🌺</div>
 
-<div id="message">Merhaba! Benimle oynar mısın? 💕</div>
+                <svg id="pony" viewBox="0 0 500 440"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <defs>
+                        <linearGradient id="bodyGradient"
+                            x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ffe0c5"/>
+                            <stop offset="100%" stop-color="#d99a77"/>
+                        </linearGradient>
+
+                        <linearGradient id="maneGradient"
+                            x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ff82c7"/>
+                            <stop offset="100%" stop-color="#a66bdf"/>
+                        </linearGradient>
+
+                        <filter id="shadow">
+                            <feGaussianBlur stdDeviation="3"/>
+                        </filter>
+                    </defs>
+
+                    <!-- Gölge -->
+                    <ellipse cx="245" cy="395" rx="145" ry="16"
+                        fill="#5d9a61" opacity=".3"/>
+
+                    <!-- Kuyruk -->
+                    <path d="M335 235 Q425 205 390 305
+                             Q375 350 347 300
+                             Q410 280 350 255"
+                        fill="url(#maneGradient)"
+                        stroke="#a75cba" stroke-width="4"/>
+
+                    <!-- Arka bacaklar -->
+                    <path d="M180 280 Q155 330 170 382
+                             Q190 395 207 380 L212 310Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <path d="M285 285 Q300 330 290 380
+                             Q310 396 330 380 L328 300Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <!-- Gövde -->
+                    <ellipse cx="250" cy="265" rx="120" ry="82"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <!-- Boyun -->
+                    <path d="M285 230 Q315 160 335 100
+                             Q365 75 400 115
+                             Q390 175 350 270Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <!-- Baş -->
+                    <path d="M330 130
+                             Q310 60 360 38
+                             Q425 20 451 78
+                             Q478 125 445 174
+                             Q415 210 370 190
+                             Q340 180 330 130Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <!-- Kulaklar -->
+                    <path d="M350 62 L341 5 Q370 15 379 52Z"
+                        fill="#e9b39d" stroke="#9f6857" stroke-width="4"/>
+
+                    <path d="M400 53 L421 4 Q440 32 426 72Z"
+                        fill="#e9b39d" stroke="#9f6857" stroke-width="4"/>
+
+                    <path d="M350 47 L347 20 L367 51Z"
+                        fill="#e887a8"/>
+
+                    <path d="M411 51 L421 20 L424 62Z"
+                        fill="#e887a8"/>
+
+                    <!-- Yele -->
+                    <g id="mane">
+                        <path d="M346 74
+                                 Q305 70 307 125
+                                 Q282 165 320 195
+                                 Q295 240 335 258
+                                 Q315 290 352 293
+                                 Q376 275 359 241
+                                 Q390 205 362 177
+                                 Q395 132 369 98Z"
+                            fill="url(#maneGradient)"
+                            stroke="#9d5cb6" stroke-width="3"/>
+
+                        <path d="M331 105 Q300 150 340 174
+                                 M341 175 Q300 215 344 240
+                                 M350 115 Q370 150 349 182"
+                            fill="none" stroke="#fff0fc"
+                            stroke-width="6" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Göz -->
+                    <ellipse cx="405" cy="110" rx="12" ry="17"
+                        fill="#603b50"/>
+
+                    <ellipse cx="409" cy="105" rx="4" ry="6"
+                        fill="white"/>
+
+                    <!-- Kirpik -->
+                    <path d="M393 93 L386 83 M401 90 L399 78"
+                        stroke="#603b50" stroke-width="3"
+                        stroke-linecap="round"/>
+
+                    <!-- Yanak -->
+                    <ellipse cx="433" cy="145" rx="13" ry="8"
+                        fill="#ff9bb8" opacity=".65"/>
+
+                    <!-- Burun -->
+                    <ellipse cx="447" cy="164" rx="4" ry="3"
+                        fill="#995e59"/>
+
+                    <!-- Gülümseme -->
+                    <path d="M416 175 Q430 187 443 174"
+                        fill="none" stroke="#995e59"
+                        stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- Ön bacaklar -->
+                    <path d="M210 310 Q195 350 200 385
+                             Q215 399 235 385 L240 305Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <path d="M255 310 Q260 350 255 385
+                             Q275 400 294 384 L292 300Z"
+                        fill="url(#bodyGradient)"
+                        stroke="#9f6857" stroke-width="4"/>
+
+                    <!-- Toynaklar -->
+                    <path d="M170 375 Q190 368 208 380
+                             L208 397 L169 397Z"
+                        fill="#85536c" stroke="#603b50" stroke-width="3"/>
+
+                    <path d="M289 375 Q309 368 329 380
+                             L329 397 L289 397Z"
+                        fill="#85536c" stroke="#603b50" stroke-width="3"/>
+
+                    <path d="M198 380 Q220 373 237 384
+                             L236 399 L199 399Z"
+                        fill="#85536c" stroke="#603b50" stroke-width="3"/>
+
+                    <path d="M253 380 Q274 374 294 384
+                             L294 399 L254 399Z"
+                        fill="#85536c" stroke="#603b50" stroke-width="3"/>
+
+                    <!-- Eyer -->
+                    <g id="saddleLayer"></g>
+
+                    <!-- Elbise -->
+                    <g id="dressLayer"></g>
+
+                    <!-- Kanatlar -->
+                    <g id="wingLayer"></g>
+
+                    <!-- Baş süsü -->
+                    <g id="headLayer"></g>
+
+                    <!-- Gözlük -->
+                    <g id="glassesLayer"></g>
+
+                    <!-- Boyun aksesuarı -->
+                    <g id="neckLayer"></g>
+
+                    <!-- Parıltılar -->
+                    <g id="sparkleLayer"></g>
+
+                </svg>
+
+                <div class="character-name" id="ponyName">
+                    Prenses Boncuk
+                </div>
+
+            </div>
+
+            <div class="message" id="message">
+                Merhaba! Ben Prenses Boncuk. 💗
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <h2>🎀 Güzellik Dolabı</h2>
+
+            <div class="tabs">
+
+                <button class="tab active"
+                    onclick="showTab('head',this)">
+                    👑 Taçlar
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('dress',this)">
+                    👗 Elbiseler
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('saddle',this)">
+                    🐴 Eyerler
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('mane',this)">
+                    💇 Yele
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('neck',this)">
+                    🎀 Kolye
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('extras',this)">
+                    ✨ Sürprizler
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('color',this)">
+                    🎨 Renkler
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('scene',this)">
+                    🌈 Dünya
+                </button>
+
+                <button class="tab"
+                    onclick="showTab('glasses',this)">
+                    🕶 Gözlük
+                </button>
+
+            </div>
+
+            <div id="items" class="items"></div>
+            <div id="colors" class="colors hidden"></div>
+
+            <div class="actions">
+
+                <button class="action"
+                    onclick="randomStyle()">
+                    🎲 Sürpriz Yap
+                </button>
+
+                <button class="action secondary"
+                    onclick="savePicture()">
+                    📸 Fotoğraf
+                </button>
+
+                <button class="action"
+                    onclick="resetAll()">
+                    🔄 Baştan Başla
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
 
 </div>
 
-<h2>🎀 Şapka ve Taçlar</h2>
-
-<div class="accessories">
-<button onclick="change('hat','👑')">👑 Taç</button>
-<button onclick="change('hat','🎀')">🎀 Kurdele</button>
-<button onclick="change('hat','🌸')">🌸 Çiçek</button>
-<button onclick="change('hat','👒')">👒 Şapka</button>
-</div>
-
-<h2>👗 Kıyafetler</h2>
-
-<div class="accessories">
-<button onclick="change('dress','👗')">💗 Pembe Elbise</button>
-<button onclick="change('dress','👚')">💜 Mor Elbise</button>
-<button onclick="change('dress','🧥')">💛 Mont</button>
-<button onclick="change('dress','🦺')">💚 Yelek</button>
-</div>
-
-<h2>👢 Ayakkabılar</h2>
-
-<div class="accessories">
-<button onclick="change('shoes','👢')">👢 Çizme</button>
-<button onclick="change('shoes','👠')">👠 Pembe Ayakkabı</button>
-<button onclick="change('shoes','👟')">👟 Spor Ayakkabı</button>
-</div>
-
-<h2>🦄 Atımın Rengi</h2>
-
-<div class="accessories">
-<button onclick="change('horse','🐴')">🤎 Kahverengi</button>
-<button onclick="change('horse','🦄')">🤍 Gökkuşağı</button>
-<button onclick="change('horse','🐎')">🖤 Siyah</button>
-</div>
-
-<h2>🌈 Arka Plan</h2>
-
-<div class="accessories">
-<button onclick="bg('#ffe4f1')">🌸 Pembe</button>
-<button onclick="bg('#d9f5ff')">💙 Mavi</button>
-<button onclick="bg('#e5ffdf')">💚 Yeşil</button>
-<button onclick="bg('#fff3bd')">💛 Sarı</button>
-</div>
-
-<br>
-
-<button onclick="celebrate()">🎉 Bitti!</button>
-<button class="reset" onclick="resetGame()">🔄 Yeniden Oyna</button>
-
-</div>
+<footer>
+    🌷 Pony Prenses Güzellik Salonu 🌷
+    <br>
+    Hayal et, tasarla ve eğlen!
+</footer>
 
 <script>
 
-function change(id, emoji) {
-    document.getElementById(id).innerHTML = emoji;
-    document.getElementById("message").innerHTML =
-    "Harika seçim! Çok güzel oldu! 💖";
+// OYUN VERİLERİ
+
+const inventory = {
+
+head: [
+    {name:"Altın Taç", icon:"👑", svg:
+    `<path d="M340 75 L350 42 L370 65 L395 32 L420 65 L440 42 L452 85Z"
+    fill="#ffd34d" stroke="#bb8130" stroke-width="4"/>
+    <circle cx="395" cy="43" r="7" fill="#ff75b9"/>`},
+
+    {name:"Pembe Fiyonk",icon:"🎀",svg:
+    `<path d="M365 65 Q325 25 340 85 Q350 110 375 77
+    Q405 110 420 75 Q435 30 390 65Z"
+    fill="#ff75b9" stroke="#b64e91" stroke-width="3"/>
+    <circle cx="380" cy="72" r="9" fill="#ffe16c"/>`},
+
+    {name:"Çiçek Tacı",icon:"🌸",svg:
+    `<path d="M345 80 Q390 42 440 85"
+    fill="none" stroke="#5abf77" stroke-width="8"/>
+    <g fill="#ff8ac4">
+    <circle cx="355" cy="70" r="11"/>
+    <circle cx="380" cy="57" r="11"/>
+    <circle cx="405" cy="60" r="11"/>
+    <circle cx="430" cy="75" r="11"/>
+    </g>`},
+
+    {name:"Yıldızlı Taç",icon:"⭐",svg:
+    `<path d="M345 80 L360 40 L385 72 L405 35 L425 72 L447 42 L452 90Z"
+    fill="#a87aff" stroke="#7249b4" stroke-width="4"/>`},
+
+    {name:"Kelebek",icon:"🦋",svg:
+    `<path d="M380 80 Q340 30 350 90 Q370 110 390 83
+    Q410 110 435 85 Q440 35 400 80Z"
+    fill="#8edbff" stroke="#488ac5" stroke-width="3"/>`},
+
+    {name:"Prenses Şapkası",icon:"👸",svg:
+    `<path d="M345 85 L365 27 L400 55 L430 25 L450 85Z"
+    fill="#cf8bfa" stroke="#9157bc" stroke-width="4"/>`}
+],
+
+dress: [
+    {name:"Pembe Elbise",icon:"👗",svg:
+    `<path d="M210 225 Q245 205 280 225 L325 330
+    Q250 365 175 330Z"
+    fill="#ff91c8" stroke="#c34c8c" stroke-width="5"/>
+    <path d="M205 255 Q250 270 300 255"
+    fill="none" stroke="#fff1fa" stroke-width="8"/>`},
+
+    {name:"Mor Elbise",icon:"💜",svg:
+    `<path d="M210 220 Q250 195 285 225 L330 330
+    Q250 360 170 330Z"
+    fill="#bd8bfa" stroke="#8155ba" stroke-width="5"/>
+    <path d="M190 300 Q250 315 312 300"
+    stroke="#fff" stroke-width="6" fill="none"/>`},
+
+    {name:"Mavi Elbise",icon:"💙",svg:
+    `<path d="M210 225 Q250 200 285 225 L325 330
+    Q250 365 175 330Z"
+    fill="#82caff" stroke="#438fc7" stroke-width="5"/>
+    <circle cx="250" cy="260" r="12" fill="#fff"/>`},
+
+    {name:"Sarı Elbise",icon:"💛",svg:
+    `<path d="M210 225 Q250 200 285 225 L325 330
+    Q250 365 175 330Z"
+    fill="#ffda76" stroke="#c99c37" stroke-width="5"/>`},
+
+    {name:"Gökkuşağı Elbise",icon:"🌈",svg:
+    `<path d="M210 225 Q250 200 285 225 L325 330
+    Q250 365 175 330Z"
+    fill="#f7a0c5" stroke="#c35d9a" stroke-width="5"/>
+    <path d="M200 270 Q250 290 300 270
+    M188 295 Q250 320 312 295"
+    fill="none" stroke="#ffe45b" stroke-width="9"/>`},
+
+    {name:"Kraliyet Pelerini",icon:"🧥",svg:
+    `<path d="M320 150 Q360 145 380 205 L320 300
+    Q280 255 300 200Z"
+    fill="#9b68d8" stroke="#7141a7" stroke-width="5"/>`}
+],
+
+saddle: [
+    {name:"Pembe Eyer",icon:"💗",svg:
+    `<path d="M170 210 Q220 180 280 210 L300 280
+    Q230 300 180 270Z"
+    fill="#ff81bd" stroke="#c94d90" stroke-width="5"/>`},
+
+    {name:"Altın Eyer",icon:"✨",svg:
+    `<path d="M170 210 Q220 180 280 210 L300 280
+    Q230 300 180 270Z"
+    fill="#ffca55" stroke="#b17b2c" stroke-width="5"/>`},
+
+    {name:"Mor Eyer",icon:"💜",svg:
+    `<path d="M170 210 Q220 180 280 210 L300 280
+    Q230 300 180 270Z"
+    fill="#a879e8" stroke="#7545a9" stroke-width="5"/>`},
+
+    {name:"Çiçekli Battaniye",icon:"🌺",svg:
+    `<path d="M160 240 Q240 190 315 245 L300 310
+    Q220 330 170 290Z"
+    fill="#f4a6d4" stroke="#ba579a" stroke-width="5"/>
+    <circle cx="220" cy="265" r="12" fill="#ffdc5c"/>
+    <circle cx="270" cy="270" r="12" fill="#fff"/>`},
+
+    {name:"Gökkuşağı Eyer",icon:"🌈",svg:
+    `<path d="M170 210 Q220 180 280 210 L300 280
+    Q230 300 180 270Z"
+    fill="#ff9cbe" stroke="#c94d90" stroke-width="5"/>
+    <path d="M180 245 Q240 265 290 245"
+    fill="none" stroke="#ffe45b" stroke-width="8"/>`}
+],
+
+neck: [
+    {name:"Pembe Kolye",icon:"📿",svg:
+    `<path d="M350 205 Q380 250 420 195"
+    fill="none" stroke="#ff62b3" stroke-width="7"/>
+    <circle cx="386" cy="231" r="10" fill="#ffe15c"/>`},
+
+    {name:"Kalp Kolye",icon:"💖",svg:
+    `<path d="M350 205 Q380 250 420 195"
+    fill="none" stroke="#ffb1d6" stroke-width="6"/>
+    <path d="M385 220 C360 200 360 240 385 246
+    C410 240 410 200 385 220Z" fill="#ff4b9a"/>`},
+
+    {name:"İnci Kolye",icon:"🤍",svg:
+    `<path d="M350 205 Q380 250 420 195"
+    fill="none" stroke="#fff" stroke-width="9"
+    stroke-dasharray="2 10"/>`},
+
+    {name:"Yıldız Kolye",icon:"⭐",svg:
+    `<path d="M350 205 Q380 250 420 195"
+    fill="none" stroke="#ffd75a" stroke-width="6"/>
+    <path d="M385 220 L391 235 L407 235 L394 246
+    L398 261 L385 252 L372 261 L376 246 L363 235
+    L379 235Z" fill="#ffdc5c"/>`}
+],
+
+extras: [
+    {name:"Melek Kanatları",icon:"🪽",svg:
+    `<path d="M180 190 Q90 110 110 245 Q140 285 200 245Z"
+    fill="#fff" stroke="#a6a6d6" stroke-width="4"/>
+    <path d="M300 190 Q400 110 390 245 Q350 285 300 245Z"
+    fill="#fff" stroke="#a6a6d6" stroke-width="4"/>`},
+
+    {name:"Gökkuşağı Kanat",icon:"🌈",svg:
+    `<path d="M180 190 Q90 110 110 245 Q140 285 200 245Z"
+    fill="#ffb3d8" stroke="#c76eaa" stroke-width="4"/>
+    <path d="M300 190 Q400 110 390 245 Q350 285 300 245Z"
+    fill="#b5d8ff" stroke="#7596d6" stroke-width="4"/>`},
+
+    {name:"Yıldız Parıltısı",icon:"✨",svg:
+    `<g fill="#ffdf55">
+    <path d="M140 120 L150 150 L180 160 L150 170 L140 200 L130 170 L100 160 L130 150Z"/>
+    <path d="M320 315 L327 334 L346 341 L327 348 L320 367 L313 348 L294 341 L313 334Z"/>
+    </g>`},
+
+    {name:"Kalp Süsleri",icon:"💕",svg:
+    `<g fill="#ff5fa7">
+    <path d="M150 185 C125 165 125 205 150 220 C175 205 175 165 150 185Z"/>
+    <path d="M335 325 C310 305 310 345 335 360 C360 345 360 305 335 325Z"/>
+    </g>`}
+],
+
+glasses: [
+    {name:"Pembe Gözlük",icon:"🕶",svg:
+    `<g stroke="#e65ca3" stroke-width="6" fill="#ffb3d7" opacity=".8">
+    <circle cx="395" cy="110" r="19"/>
+    <circle cx="445" cy="110" r="19"/>
+    <path d="M414 110 L426 110"/>
+    </g>`},
+
+    {name:"Yıldız Gözlük",icon:"⭐",svg:
+    `<g fill="#a982ed" stroke="#7348ae" stroke-width="3">
+    <path d="M395 88 L402 101 L418 103 L406 115 L409 130 L395 122 L381 130 L384 115 L372 103 L388 101Z"/>
+    <path d="M445 88 L452 101 L468 103 L456 115 L459 130 L445 122 L431 130 L434 115 L422 103 L438 101Z"/>
+    </g>`}
+]
+
+};
+
+// DURUM
+
+let currentTab = "head";
+
+let selections = {
+    head:-1,
+    dress:-1,
+    saddle:-1,
+    neck:-1,
+    extras:-1,
+    glasses:-1
+};
+
+let maneColors = [
+    "#ff82c7",
+    "#b78aff",
+    "#82caff",
+    "#ffdd65",
+    "#79d9a2",
+    "#ff9b9b",
+    "#ffffff"
+];
+
+let bodyColors = [
+    "#d99a77",
+    "#ffe0c5",
+    "#c98b68",
+    "#f0b1cb",
+    "#a985d6",
+    "#8f684d",
+    "#ffffff"
+];
+
+let currentMane = 0;
+let currentBody = 0;
+
+// KATEGORİ AÇ
+
+function showTab(tab,button) {
+
+    currentTab = tab;
+
+    document.querySelectorAll(".tab").forEach(t=>{
+        t.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    const items = document.getElementById("items");
+    const colors = document.getElementById("colors");
+
+    items.innerHTML = "";
+
+    if(tab === "color") {
+        items.classList.add("hidden");
+        colors.classList.remove("hidden");
+        drawColors();
+        return;
+    }
+
+    items.classList.remove("hidden");
+    colors.classList.add("hidden");
+
+    if(tab === "scene") {
+        drawScenes();
+        return;
+    }
+
+    if(tab === "mane") {
+        drawMane();
+        return;
+    }
+
+    let list = inventory[tab] || [];
+
+    list.forEach((item,index)=>{
+
+        let button = document.createElement("button");
+
+        button.className = "item";
+
+        button.innerHTML = `
+            <span class="item-icon">${item.icon}</span>
+            <span>${item.name}</span>
+        `;
+
+        button.onclick = ()=>selectItem(tab,index);
+
+        items.appendChild(button);
+
+    });
+
+    let remove = document.createElement("button");
+    remove.className = "item";
+    remove.innerHTML = `
+        <span class="item-icon">❌</span>
+        <span>Süslemeyi Kaldır</span>
+    `;
+    remove.onclick = ()=>removeItem(tab);
+
+    items.appendChild(remove);
+
+    updateMessage("Harika! Bir aksesuar seçebilirsin! 💗");
 }
 
-function bg(color) {
-    document.body.style.background = color;
+// AKSESUAR SEÇ
+
+function selectItem(tab,index) {
+
+    selections[tab] = index;
+
+    const layerNames = {
+        head:"headLayer",
+        dress:"dressLayer",
+        saddle:"saddleLayer",
+        neck:"neckLayer",
+        extras:"wingLayer",
+        glasses:"glassesLayer"
+    };
+
+    let layer = document.getElementById(layerNames[tab]);
+
+    layer.innerHTML = inventory[tab][index].svg;
+
+    showSelected(tab,index);
+
+    updateMessage(inventory[tab][index].name +
+        " çok yakıştı! 🌸");
 }
 
-function celebrate() {
-    document.getElementById("message").innerHTML =
-    "🎉 Yaşasın! Atımız harika oldu! 🌈💕";
+// SEÇİMİ GÖSTER
+
+function showSelected(tab,index) {
+
+    document.querySelectorAll("#items .item").forEach((b,i)=>{
+        b.classList.toggle("selected",i===index);
+    });
+
 }
 
-function resetGame() {
-    document.getElementById("hat").innerHTML = "👑";
-    document.getElementById("horse").innerHTML = "🐴";
-    document.getElementById("dress").innerHTML = "👗";
-    document.getElementById("shoes").innerHTML = "👢";
+// KALDIR
 
-    document.getElementById("message").innerHTML =
-    "Merhaba! Benimle oynar mısın? 💕";
+function removeItem(tab) {
 
-    document.body.style.background = "#ffe4f1";
+    const layerNames = {
+        head:"headLayer",
+        dress:"dressLayer",
+        saddle:"saddleLayer",
+        neck:"neckLayer",
+        extras:"wingLayer",
+        glasses:"glassesLayer"
+    };
+
+    selections[tab] = -1;
+
+    document.getElementById(layerNames[tab]).innerHTML = "";
+
+    updateMessage("Tamam! Şimdi başka bir süs seçebilirsin. 💕");
 }
+
+// YELE RENKLERİ
+
+function drawMane() {
+
+    const items = document.getElementById("items");
+
+    items.innerHTML = "";
+
+    maneColors.forEach((color,index)=>{
+
+        const b = document.createElement("button");
+        b.className = "item";
+
+        b.innerHTML = `
+            <span style="
+                width:38px;
+                height:38px;
+                border-radius:50%;
+                background:${color};
+                border:3px solid white;
+                box-shadow:0 0 0 2px #dda7cd;
+            "></span>
+            <span>Yele Rengi ${index+1}</span>
+        `;
+
+        b.onclick = ()=>{
+
+            currentMane = index;
+
+            document.getElementById("mane").querySelectorAll("path")
+                [0].setAttribute("fill",color);
+
+            document.querySelector("#mane path").setAttribute(
+                "fill",color
+            );
+
+            updateMessage("Yele rengin değişti! Çok güzel! 🌈");
+
+        };
+
+        items.appendChild(b);
+
+    });
+
+    let comb = document.createElement("button");
+    comb.className = "item";
+    comb.innerHTML = `<span class="item-icon">💇</span><span>Yelemi Tara</span>`;
+    comb.onclick = ()=>{
+        document.getElementById("mane").animate(
+            [
+                {transform:"rotate(0deg)"},
+                {transform:"rotate(5deg)"},
+                {transform:"rotate(-5deg)"},
+                {transform:"rotate(0deg)"}
+            ],
+            {duration:600}
+        );
+        updateMessage("Mis gibi oldu! Yelen tarandı! 💖");
+    };
+
+    items.appendChild(comb);
+}
+
+// AT RENKLERİ
+
+function drawColors() {
+
+    const colors = document.getElementById("colors");
+
+    colors.innerHTML = `
+        <h3 style="width:100%;text-align:center">
+        🐴 Atının rengini seç
+        </h3>
+    `;
+
+    bodyColors.forEach((color,index)=>{
+
+        let b = document.createElement("button");
+        b.className = "color";
+        b.style.background = color;
+
+        b.onclick = ()=>{
+
+            currentBody = index;
+
+            document.querySelectorAll(
+                "#pony > path, #pony > ellipse"
+            ).forEach(el=>{
+                if(el.getAttribute("fill")==="url(#bodyGradient)") {
+                    el.setAttribute("fill",color);
+                }
+            });
+
+            document.getElementById("pony")
+                .querySelectorAll("path,ellipse").forEach(el=>{
+                    if(el.getAttribute("fill")==="url(#bodyGradient)") {
+                        el.setAttribute("fill",color);
+                    }
+                });
+
+            updateMessage("Yeni rengin harika görünüyor! 🐴");
+
+        };
+
+        colors.appendChild(b);
+
+    });
+
+}
+
+// ARKA PLANLAR
+
+function drawScenes() {
+
+    const items = document.getElementById("items");
+
+    const scenes = [
+        {name:"Çiçek Bahçesi",icon:"🌷",color:
+        "linear-gradient(#bceeff 0%,#e4faff 62%,#a5e7a0 63%,#79ce87 100%)"},
+
+        {name:"Pembe Saray",icon:"🏰",color:
+        "linear-gradient(#ffc4e7,#f4c7ff 65%,#d9a2e9 66%)"},
+
+        {name:"Gökkuşağı Dünyası",icon:"🌈",color:
+        "linear-gradient(#9fe5ff,#ffd5ed 65%,#b7efb1 66%)"},
+
+        {name:"Deniz Kenarı",icon:"🏖",color:
+        "linear-gradient(#77d9ff,#b9f3ff 65%,#f9e3a7 66%)"},
+
+        {name:"Gece Masalı",icon:"🌙",color:
+        "linear-gradient(#343b83,#8e82d6 65%,#526e9a 66%)"},
+
+        {name:"Şeker Dünyası",icon:"🍭",color:
+        "linear-gradient(#ffb5e0,#e8baff 65%,#b9e6ff 66%)"}
+    ];
+
+    scenes.forEach(scene=>{
+
+        let b = document.createElement("button");
+        b.className = "item";
+
+        b.innerHTML = `
+            <span class="item-icon">${scene.icon}</span>
+            <span>${scene.name}</span>
+        `;
+
+        b.onclick = ()=>{
+
+            document.getElementById("scene").style.background =
+                scene.color;
+
+            updateMessage(scene.name+" seçildi! 🌟");
+
+        };
+
+        items.appendChild(b);
+
+    });
+
+}
+
+// MESAJ
+
+function updateMessage(text) {
+    document.getElementById("message").textContent = text;
+}
+
+// RASTGELE TASARIM
+
+function randomStyle() {
+
+    Object.keys(inventory).forEach(tab=>{
+
+        let max = inventory[tab].length;
+
+        let index = Math.floor(Math.random()*max);
+
+        selections[tab] = index;
+
+        const layerNames = {
+            head:"headLayer",
+            dress:"dressLayer",
+            saddle:"saddleLayer",
+            neck:"neckLayer",
+            extras:"wingLayer",
+            glasses:"glassesLayer"
+        };
+
+        document.getElementById(layerNames[tab]).innerHTML =
+            inventory[tab][index].svg;
+
+    });
+
+    updateMessage("🎉 Sürpriz! Prenses atın hazır!");
+}
+
+// HER ŞEYİ SIFIRLA
+
+function resetAll() {
+
+    Object.keys(selections).forEach(tab=>{
+        selections[tab] = -1;
+    });
+
+    [
+        "headLayer",
+        "dressLayer",
+        "saddleLayer",
+        "neckLayer",
+        "wingLayer",
+        "glassesLayer",
+        "sparkleLayer"
+    ].forEach(id=>{
+        document.getElementById(id).innerHTML = "";
+    });
+
+    currentMane = 0;
+    currentBody = 0;
+
+    document.getElementById("pony").querySelectorAll(
+        "path,ellipse"
+    ).forEach(el=>{
+        if(el.getAttribute("fill")==="url(#bodyGradient)") {
+            el.setAttribute("fill","url(#bodyGradient)");
+        }
+    });
+
+    document.getElementById("scene").style.background =
+        "linear-gradient(#bceeff 0%,#e4faff 62%,#a5e7a0 63%,#79ce87 100%)";
+
+    document.getElementById("ponyName").textContent =
+        "Prenses Boncuk";
+
+    updateMessage("Yeni maceraya hazırız! 🌸");
+
+    showTab("head",document.querySelector(".tab"));
+
+}
+
+// FOTOĞRAF ÇEK
+
+function savePicture() {
+
+    const svg = document.getElementById("pony");
+
+    const clone = svg.cloneNode(true);
+
+    clone.setAttribute("xmlns","http://www.w3.org/2000/svg");
+
+    const source = new XMLSerializer().serializeToString(clone);
+
+    const blob = new Blob([source],{
+        type:"image/svg+xml;charset=utf-8"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const image = new Image();
+
+    image.onload = ()=>{
+
+        const canvas = document.createElement("canvas");
+
+        canvas.width = 1000;
+        canvas.height = 880;
+
+        const ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "#ffe7f3";
+        ctx.fillRect(0,0,1000,880);
+
+        ctx.drawImage(image,0,0,1000,880);
+
+        const link = document.createElement("a");
+
+        link.download = "benim-prenses-atim.png";
+        link.href = canvas.toDataURL("image/png");
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        updateMessage("Fotoğrafın hazır! 📸💗");
+
+    };
+
+    image.src = url;
+
+}
+
+// BAŞLANGIÇ
+
+showTab("head",document.querySelector(".tab"));
 
 </script>
 
